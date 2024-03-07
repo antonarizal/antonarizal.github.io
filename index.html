@@ -60,15 +60,19 @@
                 //-8.061926490688917, 111.91202265414692 rumah
 
 
-                const radius = 5; // Ganti dengan radius yang diinginkan dalam kilometer
+                const radius = 1; // Ganti dengan radius yang diinginkan dalam kilometer
 
                 const isWithinRadius = checkLocationInRadius(userLocation, targetLocation, radius);
                 console.log(isWithinRadius)
                 console.log(userLocation)
                 if (isWithinRadius) {
                     console.log("Lokasi berada dalam radius yang ditentukan.");
+                    document.getElementById("cek_radius").innerHTML = "Lokasi berada dalam radius yang ditentukan."
+
                 } else {
                     console.log("Lokasi berada di luar radius yang ditentukan.");
+                    document.getElementById("cek_radius").innerHTML = "Lokasi berada di luar radius yang ditentukan."
+
                 }
             }, function(error) {
                 console.error("Error getting user location:", error.message);
@@ -86,6 +90,9 @@
 </p>
 <p>
     Target Lokasi : <span id="targetLokasi"></span>
+</p>
+<p>
+    Radius : <span id="cek_radius"></span>
 </p>
 
 </body>
