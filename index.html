@@ -1,1 +1,92 @@
-index
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Location in Radius</title>
+</head>
+<body>
+
+<script>
+    function degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const earthRadiusKm = 6371;
+
+        const dLat = degreesToRadians(lat2 - lat1);
+        const dLon = degreesToRadians(lon2 - lon1);
+
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        const distance = earthRadiusKm * c;
+
+        return distance;
+    }
+
+    function checkLocationInRadius(userLocation, targetLocation, radius) {
+        const distance = calculateDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            targetLocation.latitude,
+            targetLocation.longitude
+        );
+
+        return distance <= radius;
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const userLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                const targetLocation = {
+                    latitude: -8.061926490688917,  // Ganti dengan latitude target
+                    longitude: 111.91202265414692  // Ganti dengan longitude target
+                };
+                document.getElementById("lokasiku").innerHTML = userLocation.latitude + ','+ userLocation.longitude
+                document.getElementById("targetLokasi").innerHTML = targetLocation.latitude + ','+ targetLocation.longitude
+
+                //-8.03852393872323, 111.8789782862471
+
+                //-8.061926490688917, 111.91202265414692 rumah
+
+
+                const radius = 5; // Ganti dengan radius yang diinginkan dalam kilometer
+
+                const isWithinRadius = checkLocationInRadius(userLocation, targetLocation, radius);
+                console.log(isWithinRadius)
+                console.log(userLocation)
+                if (isWithinRadius) {
+                    console.log("Lokasi berada dalam radius yang ditentukan.");
+                } else {
+                    console.log("Lokasi berada di luar radius yang ditentukan.");
+                }
+            }, function(error) {
+                console.error("Error getting user location:", error.message);
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    }
+
+    // Panggil fungsi getLocation saat halaman dimuat
+    getLocation();
+</script>
+<p>
+    Lokasi Saya : <span id="lokasiku"></span>
+</p>
+<p>
+    Target Lokasi : <span id="targetLokasi"></span>
+</p>
+
+</body>
+</html>
