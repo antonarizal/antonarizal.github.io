@@ -30,13 +30,19 @@
             font-family: 'Inter', sans-serif;
         }
         .skill-bar {
-            transition: width 1s ease-in-out;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%; /* Default mulai dari 0% */
         }
         .hover-lift {
             transition: transform 0.3s ease;
         }
         .hover-lift:hover {
             transform: translateY(-5px);
+        }
+        /* Animasi untuk skill bar saat muncul */
+        @keyframes fillBar {
+            from { width: 0%; }
+            to { width: var(--target-width); }
         }
     </style>
 </head>
@@ -124,7 +130,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     <!-- Skill Item 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fab fa-php text-2xl text-blue-600"></i>
@@ -132,13 +138,18 @@
                             <h3 class="text-xl font-bold text-secondary">PHP</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Extensive experience in building server-side applications, REST APIs, and complex backend systems.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 95%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar php-bar bg-primary h-2.5 rounded-full" data-width="95%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">95%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                     
                     <!-- Skill Item 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
                                 <i class="fab fa-js text-2xl text-yellow-500"></i>
@@ -146,13 +157,18 @@
                             <h3 class="text-xl font-bold text-secondary">JavaScript</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Proficient in modern ES6+ JavaScript, building interactive UIs and implementing client-side logic.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar js-bar bg-primary h-2.5 rounded-full" data-width="90%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">90%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                     
                     <!-- Skill Item 3 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fab fa-laravel text-2xl text-red-500"></i>
@@ -160,13 +176,18 @@
                             <h3 class="text-xl font-bold text-secondary">Laravel</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Expertise in Laravel framework for building secure, scalable, and maintainable web applications.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 92%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar laravel-bar bg-primary h-2.5 rounded-full" data-width="92%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">92%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                     
                     <!-- Skill Item 4 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fab fa-react text-2xl text-blue-400"></i>
@@ -174,13 +195,18 @@
                             <h3 class="text-xl font-bold text-secondary">React</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Building dynamic, component-based user interfaces with React and modern state management solutions.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 88%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar react-bar bg-primary h-2.5 rounded-full" data-width="88%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">88%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                     
                     <!-- Skill Item 5 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fab fa-css3-alt text-2xl text-blue-500"></i>
@@ -188,13 +214,18 @@
                             <h3 class="text-xl font-bold text-secondary">CSS & Tailwind</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Creating beautiful, responsive designs with modern CSS frameworks and utility-first Tailwind CSS.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 94%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar css-bar bg-primary h-2.5 rounded-full" data-width="94%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">94%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                     
                     <!-- Skill Item 6 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                    <div class="skill-card bg-white p-6 rounded-xl shadow-md hover-lift">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
                                 <i class="fas fa-tools text-2xl text-purple-600"></i>
@@ -202,8 +233,13 @@
                             <h3 class="text-xl font-bold text-secondary">Additional Tools</h3>
                         </div>
                         <p class="text-gray-600 mb-4">Git, Webpack, Docker, MySQL, PostgreSQL, REST APIs, Agile methodologies, and more.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                            <div class="skill-bar tools-bar bg-primary h-2.5 rounded-full" data-width="90%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Beginner</span>
+                            <span class="font-medium">90%</span>
+                            <span>Expert</span>
                         </div>
                     </div>
                 </div>
@@ -279,9 +315,9 @@
                     </div>
                     
                     <div class="mt-16 text-center">
-                        <div class="inline-block bg-primary text-white px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg">
+                        <button id="contact-btn" class="inline-block bg-primary text-white px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg">
                             <i class="fas fa-paper-plane mr-2"></i> Get In Touch
-                        </div>
+                        </button>
                         <p class="mt-4 text-gray-600">Interested in collaborating? Let's build something amazing together!</p>
                     </div>
                 </div>
@@ -341,28 +377,66 @@
         // Animate skill bars on scroll
         function animateSkillBars() {
             const skillBars = document.querySelectorAll('.skill-bar');
-            skillBars.forEach(bar => {
-                bar.style.width = '0%';
-            });
             
-            setTimeout(() => {
-                skillBars.forEach(bar => {
-                    const width = bar.getAttribute('style')?.split(':')[1] || '0%';
-                    bar.style.width = width;
-                });
-            }, 300);
+            skillBars.forEach(bar => {
+                // Reset width to 0% untuk memulai animasi dari kosong
+                bar.style.width = '0%';
+                
+                // Ambil target width dari data attribute
+                const targetWidth = bar.getAttribute('data-width');
+                
+                // Gunakan setTimeout untuk memberi jeda sebelum animasi dimulai
+                setTimeout(() => {
+                    // Set target width dan trigger animasi
+                    bar.style.width = targetWidth;
+                    
+                    // Tambahkan event listener untuk mengubah warna setelah animasi selesai
+                    bar.addEventListener('transitionend', function() {
+                        // Efek visual tambahan setelah animasi selesai
+                        bar.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.5)';
+                        
+                        // Hapus shadow setelah 1 detik
+                        setTimeout(() => {
+                            bar.style.boxShadow = 'none';
+                        }, 1000);
+                    }, { once: true }); // Hanya sekali
+                }, 100); // Delay kecil untuk efek visual yang lebih baik
+            });
         }
 
-        // Trigger animation when skills section comes into view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateSkillBars();
-                }
-            });
-        }, { threshold: 0.3 });
+        // Check jika skill section sudah terlihat di viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                rect.bottom >= 0
+            );
+        }
 
-        observer.observe(document.getElementById('skills'));
+        // Function untuk mengecek dan memicu animasi skill bars
+        function checkAndAnimateSkills() {
+            const skillsSection = document.getElementById('skills');
+            
+            if (isElementInViewport(skillsSection)) {
+                // Jika belum dianimasikan, jalankan animasi
+                if (!skillsSection.classList.contains('animated')) {
+                    animateSkillBars();
+                    skillsSection.classList.add('animated');
+                    
+                    // Hapus event listener setelah animasi dijalankan
+                    window.removeEventListener('scroll', checkAndAnimateSkills);
+                }
+            }
+        }
+
+        // Jalankan animasi saat halaman dimuat jika skills section sudah terlihat
+        window.addEventListener('DOMContentLoaded', checkAndAnimateSkills);
+        
+        // Tambahkan event listener untuk scroll
+        window.addEventListener('scroll', checkAndAnimateSkills);
+        
+        // Juga cek saat halaman pertama kali dimuat
+        window.addEventListener('load', checkAndAnimateSkills);
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -379,6 +453,24 @@
                         behavior: 'smooth'
                     });
                 }
+            });
+        });
+
+        // Tombol Get In Touch
+        document.getElementById('contact-btn').addEventListener('click', function() {
+            alert('Thank you for your interest! You can reach me at: anton.arizal@example.com');
+        });
+
+        // Bonus: Animasi hover pada skill card
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
             });
         });
     </script>
