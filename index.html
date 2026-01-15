@@ -3,97 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Location in Radius</title>
-</head>
-<body>
-
-<script>
-    function degreesToRadians(degrees) {
-        return degrees * Math.PI / 180;
-    }
-
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-        const earthRadiusKm = 6371;
-
-        const dLat = degreesToRadians(lat2 - lat1);
-        const dLon = degreesToRadians(lon2 - lon1);
-
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                  Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
-                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        const distance = earthRadiusKm * c;
-
-        return distance;
-    }
-
-    function checkLocationInRadius(userLocation, targetLocation, radius) {
-        const distance = calculateDistance(
-            userLocation.latitude,
-            userLocation.longitude,
-            targetLocation.latitude,
-            targetLocation.longitude
-        );
-
-        return distance <= radius;
-    }
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const userLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-
-                const targetLocation = {
-                    latitude: -8.061926490688917,  // Ganti dengan latitude target
-                    longitude: 111.91202265414692  // Ganti dengan longitude target
-                };
-                document.getElementById("lokasiku").innerHTML = userLocation.latitude + ','+ userLocation.longitude
-                document.getElementById("targetLokasi").innerHTML = targetLocation.latitude + ','+ targetLocation.longitude
-
-                //-8.03852393872323, 111.8789782862471
-
-                //-8.061926490688917, 111.91202265414692 rumah
-
-
-                const radius = 1; // Ganti dengan radius yang diinginkan dalam kilometer
-
-                const isWithinRadius = checkLocationInRadius(userLocation, targetLocation, radius);
-                console.log(isWithinRadius)
-                console.log(userLocation)
-                if (isWithinRadius) {
-                    console.log("Lokasi berada dalam radius yang ditentukan.");
-                    document.getElementById("cek_radius").innerHTML = "Lokasi berada dalam radius yang ditentukan."
-
-                } else {
-                    console.log("Lokasi berada di luar radius yang ditentukan.");
-                    document.getElementById("cek_radius").innerHTML = "Lokasi berada di luar radius yang ditentukan."
-
+    <title>M. Anton Arizal - Web Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#3B82F6',
+                        'secondary': '#1E293B',
+                        'accent': '#10B981',
+                    }
                 }
-            }, function(error) {
-                console.error("Error getting user location:", error.message);
-            });
-        } else {
-            console.error("Geolocation is not supported by this browser.");
+            }
         }
-    }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .skill-bar {
+            transition: width 1s ease-in-out;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-10 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-secondary">M. Anton Arizal</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-600 hover:text-primary font-medium">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-primary font-medium">About</a>
+                <a href="#skills" class="text-gray-600 hover:text-primary font-medium">Skills</a>
+                <a href="#experience" class="text-gray-600 hover:text-primary font-medium">Experience</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-600 hover:text-primary font-medium">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-primary font-medium">About</a>
+                <a href="#skills" class="text-gray-600 hover:text-primary font-medium">Skills</a>
+                <a href="#experience" class="text-gray-600 hover:text-primary font-medium">Experience</a>
+            </div>
+        </div>
+    </header>
 
-    // Panggil fungsi getLocation saat halaman dimuat
-    getLocation();
-</script>
-<p>
-    Lokasi Saya : <span id="lokasiku"></span>
-</p>
-<p>
-    Target Lokasi : <span id="targetLokasi"></span>
-</p>
-<p>
-    Radius : <span id="cek_radius"></span>
-</p>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="py-16 md:py-24 bg-gradient-to-r from-primary to-blue-700 text-white">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Hello, I'm <span class="text-accent">M. Anton Arizal</span></h1>
+                        <p class="text-xl mb-6 text-blue-100">A passionate Web Developer with over a decade of experience crafting exceptional digital experiences.</p>
+                        <div class="bg-secondary bg-opacity-80 p-4 rounded-lg inline-block">
+                            <h2 class="text-2xl font-semibold mb-2">Web Developer</h2>
+                            <p class="text-blue-100">Building the web, one line of code at a time.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="relative">
+                            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-accent to-blue-500 flex items-center justify-center shadow-2xl">
+                                <div class="w-60 h-60 md:w-72 md:h-72 rounded-full bg-gray-800 flex items-center justify-center">
+                                    <i class="fas fa-laptop-code text-8xl md:text-9xl text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-3 -right-3 bg-accent text-white px-4 py-2 rounded-full font-medium">
+                                10+ Years Experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-12 text-center">About Me</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        With over <span class="font-bold text-primary">10 years of professional experience</span> in web development, I have honed my skills in creating robust, scalable, and user-friendly web applications. My passion lies in transforming complex problems into elegant solutions through clean, efficient code.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        I specialize in both frontend and backend development, with a particular focus on modern JavaScript frameworks and PHP ecosystems. Throughout my career, I've collaborated with diverse teams to deliver high-quality projects that exceed client expectations.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or mentoring aspiring developers. I believe in continuous learning and staying updated with the ever-evolving web development landscape.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-12 text-center">Technical Expertise</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Skill Item 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-php text-2xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">PHP</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Extensive experience in building server-side applications, REST APIs, and complex backend systems.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Item 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-js text-2xl text-yellow-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">JavaScript</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Proficient in modern ES6+ JavaScript, building interactive UIs and implementing client-side logic.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Item 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-laravel text-2xl text-red-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">Laravel</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Expertise in Laravel framework for building secure, scalable, and maintainable web applications.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Item 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-react text-2xl text-blue-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">React</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Building dynamic, component-based user interfaces with React and modern state management solutions.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Item 5 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fab fa-css3-alt text-2xl text-blue-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">CSS & Tailwind</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Creating beautiful, responsive designs with modern CSS frameworks and utility-first Tailwind CSS.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 94%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Item 6 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover-lift">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-tools text-2xl text-purple-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary">Additional Tools</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Git, Webpack, Docker, MySQL, PostgreSQL, REST APIs, Agile methodologies, and more.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="skill-bar bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-12 text-center">Professional Journey</h2>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="relative">
+                        <!-- Timeline line -->
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary"></div>
+                        
+                        <!-- Experience Item 1 -->
+                        <div class="flex flex-col md:flex-row mb-12">
+                            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                                    <h3 class="text-xl font-bold text-secondary mb-2">Senior Web Developer</h3>
+                                    <p class="text-gray-600 mb-2">TechVision Solutions</p>
+                                    <p class="text-gray-500 text-sm">2018 - Present</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex items-center justify-center md:w-8">
+                                <div class="w-6 h-6 rounded-full bg-accent border-4 border-white shadow"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <div class="p-6">
+                                    <p class="text-gray-700">Leading a team of developers to build enterprise-level web applications using Laravel and React. Implemented CI/CD pipelines and improved application performance by 40%.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience Item 2 -->
+                        <div class="flex flex-col md:flex-row mb-12">
+                            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right order-2 md:order-1">
+                                <div class="p-6">
+                                    <p class="text-gray-700">Developed and maintained multiple e-commerce platforms serving 50,000+ users. Integrated payment gateways and optimized database queries reducing page load times by 60%.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex items-center justify-center md:w-8 order-1 md:order-2">
+                                <div class="w-6 h-6 rounded-full bg-accent border-4 border-white shadow"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3">
+                                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                                    <h3 class="text-xl font-bold text-secondary mb-2">Full Stack Developer</h3>
+                                    <p class="text-gray-600 mb-2">Digital Innovations Inc.</p>
+                                    <p class="text-gray-500 text-sm">2014 - 2018</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience Item 3 -->
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0 md:text-right">
+                                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                                    <h3 class="text-xl font-bold text-secondary mb-2">Web Developer</h3>
+                                    <p class="text-gray-600 mb-2">WebCraft Studios</p>
+                                    <p class="text-gray-500 text-sm">2012 - 2014</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex items-center justify-center md:w-8">
+                                <div class="w-6 h-6 rounded-full bg-accent border-4 border-white shadow"></div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <div class="p-6">
+                                    <p class="text-gray-700">Built responsive websites for small to medium businesses. Developed custom WordPress themes and plugins, improving client website performance and SEO rankings.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-16 text-center">
+                        <div class="inline-block bg-primary text-white px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg">
+                            <i class="fas fa-paper-plane mr-2"></i> Get In Touch
+                        </div>
+                        <p class="mt-4 text-gray-600">Interested in collaborating? Let's build something amazing together!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">M. Anton Arizal</h3>
+                    <p class="text-gray-300">Web Developer</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-500 transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-300">© <span id="current-year"></span> M. Anton Arizal. All rights reserved.</p>
+                    <p class="text-gray-400 text-sm mt-1">10+ years of web development excellence</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Animate skill bars on scroll
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            skillBars.forEach(bar => {
+                bar.style.width = '0%';
+            });
+            
+            setTimeout(() => {
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('style')?.split(':')[1] || '0%';
+                    bar.style.width = width;
+                });
+            }, 300);
+        }
+
+        // Trigger animation when skills section comes into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkillBars();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(document.getElementById('skills'));
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
